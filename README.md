@@ -71,4 +71,5 @@ Spécification : [docs/SOLIDARITY_DASHBOARD.md](docs/SOLIDARITY_DASHBOARD.md) (t
 | 2026-11-09 | Au lancement : 100 pionniers uniquement. Les séries à 50 USDC s'ouvrent via `openSeries()` quand le TWAP atteint x10 (0,001 USDC/BILL). 49 tests. |
 | 2026-11-17 | Dossier de décisions `docs/DECISIONS.md` : Phase 0 = statu quo prix juste (#2), anti-sybil en défense en profondeur + paramètres finaux 50 USDC / 100 USDC (#4), vote public consultatif sans clé (#7), V4 en multisigs 3/5 (#3), priorité FIFO si fonds insuffisant. Tests vérifiés : 56 tests, 0 échec. |
 | 2026-11-17 | Anti-collusion #10 dans `SolidarityWallet` : un validateur doit détenir un lot acheté depuis >= 30 jours (`VALIDATOR_SENIORITY`, lecture de `CommunityLots.grants`). Pas de tirage au sort on-chain (blockhash manipulable, VRF = clé). 58 tests. |
-| À venir | V4 programme de participation (#3), site tableau de bord (#6), audit. |
+| 2026-11-17 | Site #6/#11 : Espace Demandeurs (montant, fournisseur, urgence, description sans collage, facture masquée, empreinte keccak256 locale, dépôt `createRequest` dès déploiement), cartes de vote enrichies (montant/fournisseur/urgence, anonymes), signaux IA locaux (signale, ne paie pas). i18n FR/EN/RU, testé navigateur. |
+| À venir | V4 programme de participation (#3), Espace Validateurs et Conseil (étape 4 du site), audit. |

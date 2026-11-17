@@ -47,6 +47,7 @@
 <a class="logo" href="./" aria-label="BillPay Protocol"><img src="assets/logo.svg" alt="" width="40" height="40"><span class="wm"><b>Bill<span>Pay</span></b><small>PROTOCOL · $BILL</small></span></a>
 <nav class="main" aria-label="Navigation principale" data-i18n-label="nav_label">
 <a href="#dashboard" data-i18n="nav_dash">Tableau de bord</a>
+<a href="#apply" data-i18n="nav_apply">Demandeurs</a>
 <a href="#votes" data-i18n="nav_votes">Votes</a>
 <a href="#governance" data-i18n="nav_gov">Gouvernance</a>
 <a href="#rules" data-i18n="nav_rules">Règles</a>
@@ -89,6 +90,50 @@
 <div class="glass stat"><div class="n" id="st-holders">—</div><div class="l" data-i18n="st_holders">Détenteurs</div></div>
 </div>
 <p class="muted" style="font-size:14px" data-i18n="stats_src">Source : relais de lecture du contrat.</p>
+</section>
+
+<section id="apply" aria-labelledby="apply-h">
+<h2 id="apply-h" data-i18n="apply_h">Espace Demandeurs</h2>
+<p class="muted" data-i18n="apply_p"></p>
+<div class="glass">
+<p class="status" id="apply-wallet" role="status" aria-live="polite"></p>
+<form id="apply-form" novalidate>
+<div class="field">
+<label for="apply-amount" data-i18n="apply_amount">Montant demandé (BILL)</label>
+<input id="apply-amount" inputmode="decimal" autocomplete="off" placeholder="1000">
+</div>
+<div class="field">
+<label for="apply-provider" data-i18n="apply_provider">Fournisseur</label>
+<input id="apply-provider" autocomplete="off" placeholder="Énergie / Électricité de…">
+</div>
+<div class="field">
+<label for="apply-urgency" data-i18n="apply_urgency">Urgence</label>
+<select id="apply-urgency">
+<option value="low" data-i18n="apply_u_low">Basse</option>
+<option value="medium" data-i18n="apply_u_med">Moyenne</option>
+<option value="high" data-i18n="apply_u_high">Haute</option>
+</select>
+</div>
+<div class="field">
+<label for="apply-desc" data-i18n="apply_desc">Description (saisie manuelle, sans collage)</label>
+<textarea id="apply-desc" rows="4" maxlength="500"></textarea>
+</div>
+<div class="field">
+<label for="apply-file" data-i18n="apply_file">Facture (PDF ou image, max 5 Mo)</label>
+<input id="apply-file" type="file" accept=".pdf,.png,.jpg,.jpeg">
+<p class="muted" id="apply-file-info" data-i18n="apply_file_none" style="font-size:14px;margin:8px 0 0">Aucun fichier choisi.</p>
+</div>
+<p class="muted" data-i18n="apply_privacy" style="font-size:14px"></p>
+<div class="note warn" id="apply-warn" hidden style="margin:12px 0;padding:10px 14px;border-left:4px solid #e5484d;border-radius:10px">
+<p data-i18n="apply_ai_flag"></p>
+</div>
+<div id="apply-preview"></div>
+<div class="row" style="margin-top:16px">
+<button type="submit" class="btn pri" data-i18n="apply_submit">Déposer la demande</button>
+</div>
+<p class="status" id="apply-msg" role="status" aria-live="polite"></p>
+</form>
+</div>
 </section>
 
 <section id="votes" aria-labelledby="votes-h">

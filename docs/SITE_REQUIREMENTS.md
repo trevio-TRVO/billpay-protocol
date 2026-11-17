@@ -34,7 +34,7 @@ Next.js + TypeScript, wagmi/viem (Base), Auth Google (OAuth), stockage chiffré 
 ## Étapes
 1. Maquette (`site/index.html`) validée.
 2. Lecture on-chain (compteur d'impact, lots).
-3. Espace Demandeurs et Tribunal.
+3. Espace Demandeurs et Tribunal. — **Espace Demandeurs livré** (2026-11-17) : formulaire complet (montant, fournisseur, urgence, description sans collage, facture masquée), empreinte keccak256 calculée dans le navigateur, dépôt on-chain via `createRequest` dès que `SOLIDARITY_ADDRESS` est renseigné ; cartes de vote enrichies (montant, fournisseur, urgence) ; signaux IA locaux (issue #11 : signale, ne paie jamais).
 4. Espace Validateurs et Conseil.
 5. Audit de sécurité, puis ouverture.
 

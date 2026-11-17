@@ -44,6 +44,7 @@ function normVotes(raw) {
     title: p.title || t("vote_bill", { n: p.id }),
     forVotes: p.forVotes ?? fromWei(p.approvalWeight),
     againstVotes: p.againstVotes,
+    amount: p.amount, provider: p.provider, urgency: p.urgency,
     spam: !!p.spam
   }));
 }
@@ -78,6 +79,18 @@ function renderVotes() {
     card.className = "glass vote";
     const h = document.createElement("h3");
     h.textContent = v.placeholder ? t("vote_placeholder") : v.title;
+    // Carte anonyme (Tribunal Solidaire) : montant, fournisseur, urgence — jamais d'identité.
+    if (!v.placeholder && (v.amount || v.provider || v.urgency)) {
+      const meta = document.createElement("p");
+      meta.className = "muted";
+      meta.style.fontSize = "14px";
+      const bits = [];
+      if (v.amount) bits.push(t("vote_amount") + " " + num(v.amount));
+      if (v.provider) bits.push(t("vote_provider") + " " + v.provider);
+      if (v.urgency) bits.push(t("vote_urgency") + " " + t("apply_u_" + ({ low: "low", medium: "med", high: "high" }[v.urgency] || "med")));
+      meta.textContent = bits.join(" · ");
+      card.appendChild(meta);
+    }
     const nums = document.createElement("p");
     nums.className = "muted";
     nums.textContent = t("vote_for") + " " + num(v.forVotes) + " · " + t("vote_against") + " " + num(v.againstVotes);

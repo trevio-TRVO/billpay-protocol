@@ -11,6 +11,8 @@ export const CONFIG = {
   SAFE_PROXY_URL: "",
   // Adresse du contrat BillPayProtocol sur Base (vide tant que non déployé).
   CONTRACT_ADDRESS: "",
+  // Adresse du SolidarityWallet sur Base (Espace Demandeurs : createRequest). Vide tant que non déployé.
+  SOLIDARITY_ADDRESS: "",
   // Lien d'achat de $BILL (vide tant que la pool n'existe pas).
   BUY_URL: "",
   EXPLORER_URL: "https://basescan.org",
