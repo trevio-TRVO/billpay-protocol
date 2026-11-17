@@ -38,6 +38,7 @@ Spécification : [docs/SOLIDARITY_DASHBOARD.md](docs/SOLIDARITY_DASHBOARD.md) (t
 - [docs/COUNCIL.md](docs/COUNCIL.md) : composition mensuelle du conseil.
 - [docs/SITE_REQUIREMENTS.md](docs/SITE_REQUIREMENTS.md) : besoin du site.
 - [`hub/`](hub/README.md) : interface publique BillPay Hub. [`site/`](site/) est l'ancienne maquette.
+- [Planning de livraison et recette BillPay](docs/LIVRAISON_BILLPAY.md) : périmètre, dépendances, preuves et procédure de mise en service.
 
 ## Historique des versions
 

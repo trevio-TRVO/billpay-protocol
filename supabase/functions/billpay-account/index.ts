@@ -8,7 +8,16 @@ const abi = parseAbi([
   "function token() view returns (address)", "function grantCount(address) view returns (uint256)",
   "function isMember(address) view returns (bool)", "function isValidSignature(bytes32,bytes) view returns (bytes4)",
 ]);
-const origin = Deno.env.get("BILLPAY_ORIGIN") ?? "https://billpaytoken.com";
+const origin = Deno.env.get("BILLPAY_ORIGIN")?.trim();
+const allowedOrigin = (() => {
+  if (!origin) return null;
+  try {
+    const url = new URL(origin);
+    return url.protocol === "https:" && url.origin === origin ? origin : null;
+  } catch {
+    return null;
+  }
+})();
 const baseRpc = Deno.env.get("BILLPAY_BASE_RPC_URL");
 const serviceUrl = Deno.env.get("SUPABASE_URL");
 const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -84,11 +93,13 @@ Deno.serve(async (req) => {
   const caller = req.headers.get("Origin");
   const headers = {
     "Content-Type": "application/json", "Cache-Control": "no-store", "Vary": "Origin",
-    "Access-Control-Allow-Origin": origin, "Access-Control-Allow-Methods": "POST, OPTIONS",
+    ...(allowedOrigin ? { "Access-Control-Allow-Origin": allowedOrigin } : {}),
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   };
   const reply = (data: unknown, status = 200) => new Response(JSON.stringify(data), { status, headers });
-  if (caller !== origin) return reply({ error: "origin_denied" }, 403);
+  if (!allowedOrigin) return reply({ error: "not_configured" }, 503);
+  if (caller !== allowedOrigin) return reply({ error: "origin_denied" }, 403);
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers });
   if (req.method !== "POST") return reply({ error: "method_not_allowed" }, 405);
   if (!client) return reply({ error: "not_configured" }, 503);
@@ -149,7 +160,7 @@ Deno.serve(async (req) => {
         const address = addressOf(body.address);
         if (!address) throw new Rejected(400, "invalid_wallet");
         const nonce = crypto.randomUUID().replaceAll("-", "");
-        const { message, issuedAt, expiresAt } = makeChallenge({ origin, address, nonce, now: new Date() });
+        const { message, issuedAt, expiresAt } = makeChallenge({ origin: allowedOrigin, address, nonce, now: new Date() });
         const { data: issued, error } = await client.rpc("billpay_issue_wallet_challenge", {
           p_user: user, p_address: address.toLowerCase(), p_nonce: nonce, p_message: message, p_issued: issuedAt, p_expires: expiresAt,
         });

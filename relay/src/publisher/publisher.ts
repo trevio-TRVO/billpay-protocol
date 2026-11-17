@@ -60,6 +60,7 @@ export async function collect(
 export interface FlushResult {
   sent: { id: string; channel: string; lang: string }[];
   skipped: string;
+  failures?: { id: string; channel: string; lang: string }[];
 }
 
 /** Sends approved items. Requires APPROVE=true; DRY_RUN (default) only logs. */
@@ -73,27 +74,37 @@ export async function flush(queue: Queue, opts: PublisherOptions): Promise<Flush
   if (!channels.length) return { sent: [], skipped: "no channel configured" };
 
   const sent: FlushResult["sent"] = [];
+  const failures: NonNullable<FlushResult["failures"]> = [];
   for (const item of approved) {
-    const done: string[] = [];
+    const done = new Set(item.postedTo);
     let failed = false;
     for (const ch of channels) {
       for (const lang of ch.langs) {
+        const destination = `${ch.name}:${lang}`;
+        if (!opts.dryRun && done.has(destination)) continue;
         try {
           await ch.send(item.posts[lang], lang);
-          sent.push({ id: item.id, channel: ch.name, lang });
-          done.push(`${ch.name}:${lang}`);
         } catch (err) {
           failed = true;
+          failures.push({ id: item.id, channel: ch.name, lang });
           log(`error ${item.id} ${ch.name}:${lang}: ${err instanceof Error ? err.message : err}`);
+          continue;
+        }
+        sent.push({ id: item.id, channel: ch.name, lang });
+        if (!opts.dryRun) {
+          done.add(destination);
+          item.postedTo = [...done];
+          // Persist each confirmed delivery before attempting the next one.
+          await queue.save();
         }
       }
     }
-    // Dry-run never consumes the item; failures stay approved for retry.
+    // A failed destination keeps the item approved for an operator to review.
     if (!opts.dryRun && !failed) {
       item.status = "posted";
-      item.postedTo = done;
+      item.postedTo = [...done];
     }
   }
-  await queue.save();
-  return { sent, skipped: "" };
+  if (!opts.dryRun) await queue.save();
+  return { sent, skipped: "", ...(failures.length ? { failures } : {}) };
 }

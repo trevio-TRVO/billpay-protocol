@@ -8,7 +8,7 @@ Relais **lecture seule** pour BillPay Protocol ($BILL, Base) : API JSON publique
 
 ```bash
 cd relay
-npm install
+npm ci
 cp .env.example .env   # renseigner les adresses de contrats ; ne jamais commiter .env
 npm test && npm run typecheck
 npm start              # API sur :8787 (charger .env via `node --env-file=.env` ou l'environnement)
@@ -36,22 +36,24 @@ npm run publisher -- reject <id>
 npm run publisher -- flush          # envoie les brouillons approuvés
 ```
 
-Évènements : lot vendu (`Purchased`), facture payée (`Paid`), jalons de burn (`BURN_MILESTONES`). Premier lancement : démarre à la tête de chaîne, pas de rattrapage.
+Évènements : lot vendu (`Purchased`), transfert solidaire de BILL (`Paid`), jalons de burn (`BURN_MILESTONES`). `Paid` ne prouve pas le règlement de la facture par le fournisseur ; aucun identifiant de dossier, wallet bénéficiaire ou montant individuel ne figure dans le message. Premier lancement : démarre à la tête de chaîne, pas de rattrapage.
 
 **Garde-fous** (testés) :
 - `DRY_RUN=true` par défaut : les posts sont seulement affichés.
 - Publication réelle uniquement si `DRY_RUN=false` **et** `APPROVE=true` **et** le brouillon a été approuvé par un humain. Sans `APPROVE=true`, rien ne part, jamais.
 - Canaux enfichables (`Channel`) : Telegram (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`) et X (`X_ACCESS_TOKEN`, ≤ 280 caractères). Secrets uniquement par variables d'environnement, masqués dans les erreurs.
 - Textes déterministes (pas de LLM), adresses abrégées.
+- En cas d’échec partiel, le relais enregistre chaque envoi confirmé et le prochain `flush` saute ces destinations. Une erreur d’envoi entraîne un code de sortie non nul. En cas de réponse perdue ou d’arrêt entre l’envoi et son enregistrement, vérifier manuellement le canal avant de relancer : il n’existe pas de garantie « exactement une fois ». Exécuter une seule instance d’écriture par fichier d’état, sans chevauchement des commandes `collect`, `approve`, `reject` ou `flush`.
+- Les textes des brouillons déjà en file ne sont pas réécrits par une mise à jour du code. Examiner et rejeter les anciens brouillons dont le texte ne satisfait pas la règle ci-dessus avant toute activation.
 
 ## 3. n8n
 
-Importer `n8n/billpay-stats-approval.json` : planificateur → `GET /api/stats` → texte FR/EN/RU → **approbation humaine Telegram** (`sendAndWait`) → publication si approuvé **et** `APPROVE=true`. Variables n8n : `RELAY_API_URL`, `TELEGRAM_APPROVER_CHAT_ID`, `TELEGRAM_PUBLIC_CHAT_ID`, `APPROVE`. Les identifiants Telegram se configurent dans n8n (`REPLACE_ME` à remplacer).
+Modèle d’intégration à vérifier en préproduction : `n8n/billpay-stats-approval.json`. Il prévoit un planificateur, `GET /api/stats`, un texte FR/EN/RU et une approbation Telegram avant toute publication. Variables : `RELAY_API_URL`, `TELEGRAM_APPROVER_CHAT_ID`, `TELEGRAM_PUBLIC_CHAT_ID`, `APPROVE`. Les identifiants restent dans le coffre n8n. Ne pas activer le workflow avant la recette du [plan de livraison](../docs/LIVRAISON_BILLPAY.md) ni l’utiliser en parallèle du publisher pour le même contenu.
 
 ---
 
 ## EN (short)
-Read-only relay for BillPay Protocol: public JSON API (`/api/stats`, `/api/lots`, `/api/health`, CORS + caching) and a content publisher turning on-chain events (lot sold, bill paid, burn milestones) into FR/EN/RU drafts. Dry-run by default; nothing is ever posted without a human approving each draft **and** `APPROVE=true` (and `DRY_RUN=false`). Channels: Telegram, X. An importable n8n workflow with an approval step is in `n8n/`. No keys, no signing, no payments. Config via env (`.env.example`). Run `npm test && npm run typecheck`.
+Read-only relay for BillPay Protocol: JSON API and a publisher turning on-chain events into FR/EN/RU drafts. A fund transfer is not evidence of an invoice settlement. Real publication requires human approval per draft, `APPROVE=true` and `DRY_RUN=false`. No signing or payments. Run `npm test && npm run typecheck`.
 
 ## RU (кратко)
-Релей BillPay Protocol только для чтения: публичный JSON API (`/api/stats`, `/api/lots`, `/api/health`, CORS и кэш) и публикатор, превращающий ончейн-события (продажа лота, оплата счёта, рубежи сжигания) в черновики FR/EN/RU. По умолчанию dry-run; ничего не публикуется без одобрения человеком каждого черновика **и** `APPROVE=true` (и `DRY_RUN=false`). Каналы: Telegram, X. Импортируемый workflow n8n с шагом одобрения лежит в `n8n/`. Никаких ключей, подписей и платежей. Настройки через env (`.env.example`).
+Релей BillPay Protocol только для чтения: JSON API и черновики FR/EN/RU. Перевод фонда не подтверждает оплату счёта. Публикация требует одобрения черновика человеком, `APPROVE=true` и `DRY_RUN=false`. Релей не подписывает и не выполняет платежи.
