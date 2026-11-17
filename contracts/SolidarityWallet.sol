@@ -8,6 +8,8 @@ interface IERC20Min {
 
 interface ICommunityLots {
     function hasBought(address who) external view returns (bool);
+    function grantCount(address who) external view returns (uint256);
+    function grants(address who, uint256 id) external view returns (uint128 total, uint128 claimed, uint64 start);
 }
 
 interface ICouncilRegistry {
@@ -27,6 +29,7 @@ contract SolidarityWallet {
     uint256 public constant FOUNDER_WEIGHT = 3;
     uint256 public constant THRESHOLD = 5;
     uint256 public constant MIN_VALIDATORS = 5;
+    uint256 public constant VALIDATOR_SENIORITY = 30 days; // anti-collusion : lot détenu depuis >= 30 j
     uint256 public constant CYCLE = 24 hours;
     uint256 public constant PAYEE_COOLDOWN = 30 days;
     uint256 public constant MAX_BPS_PER_PAYMENT = 2000; // 20 % du solde max par paiement
@@ -96,11 +99,26 @@ contract SolidarityWallet {
         emit RequestCreated(id, payee, amount, invoiceHash);
     }
 
+    /// @notice Anti-collusion (issue #10) : le validateur doit détenir un lot acheté
+    ///         depuis au moins VALIDATOR_SENIORITY (30 j). Un acteur multi-wallets doit
+    ///         donc verrouiller son capital un mois entier avant de pouvoir valider,
+    ///         et reste visible sur chaîne. Pas de tirage au sort on-chain : un
+    ///         aléatoire manipulable (blockhash) ou clé VRF réintroduirait un admin.
+    function _isSeniorValidator(address who) internal view returns (bool) {
+        uint256 n = lots.grantCount(who);
+        for (uint256 i; i < n; i++) {
+            (, , uint64 start) = lots.grants(who, i);
+            if (block.timestamp >= uint256(start) + VALIDATOR_SENIORITY) return true;
+        }
+        return false;
+    }
+
     /// @notice Validation par un acquéreur de lot (un wallet, une voix par demande).
     function validate(uint256 id) external {
         Request storage r = requests[id];
         require(r.status == Status.Open, "not open");
         require(lots.hasBought(msg.sender), "not a lot holder");
+        require(_isSeniorValidator(msg.sender), "lot too young");
         require(msg.sender != r.payee, "payee");
         require(!validated[id][msg.sender], "already validated");
         validated[id][msg.sender] = true;
