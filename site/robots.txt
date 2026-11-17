@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://trevio-trvo.github.io/billpay-protocol/sitemap.xml
+Sitemap: https://billpaytoken.com/sitemap.xml

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru" dir="ltr" data-page="request" data-root="../../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#05070d">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: blob: https://*.walletconnect.com https://*.reown.com; connect-src 'self' https://cdn.jsdelivr.net https://mainnet.base.org https://*.walletconnect.com wss://*.walletconnect.com https://*.walletconnect.org wss://*.walletconnect.org https://*.reown.com wss://*.reown.com; frame-src https://verify.walletconnect.com https://verify.walletconnect.org">
+<title data-i18n="request">Заявка · BillPay Hub</title>
+<meta name="description" content="Подготовьте счет локально. Статический Hub не проверяет личность, не принимает документы и не отправляет заявки." data-i18n="requestIntro">
+<meta property="og:title" content="Заявка · BillPay Hub">
+<meta property="og:description" content="Подготовьте счет локально. Статический Hub не проверяет личность, не принимает документы и не отправляет заявки.">
+<meta property="og:image" content="https://billpaytoken.com/assets/og-banner-ru.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://billpaytoken.com/lang/ru/demande/">
+<meta property="og:locale" content="ru_RU">
+<link rel="canonical" href="https://billpaytoken.com/lang/ru/demande/">
+<link rel="alternate" hreflang="fr" href="https://billpaytoken.com/demande/">
+<link rel="alternate" hreflang="en" href="https://billpaytoken.com/lang/en/demande/">
+<link rel="alternate" hreflang="ru" href="https://billpaytoken.com/lang/ru/demande/">
+<link rel="alternate" hreflang="es" href="https://billpaytoken.com/lang/es/demande/">
+<link rel="alternate" hreflang="ar" href="https://billpaytoken.com/lang/ar/demande/">
+<link rel="alternate" hreflang="x-default" href="https://billpaytoken.com/demande/">
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../../../assets/v2.css">
+<noscript><style>#nav:not(.open){display:grid}#menu{display:none}</style></noscript>
+<script type="module" src="../../../js/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Перейти к содержанию</a>
+<header class="mast"><div class="wrap top">
+  <a class="brand" href="../../../lang/ru/" data-route="home"><img src="../../../assets/favicon.svg" width="32" height="32" alt=""><span data-i18n="brand" >BillPay Hub</span></a>
+  <div class="head-tools"><span class="network"><i></i><span data-i18n="base" >Сеть Base</span></span>
+  <label class="lang"><span class="sr" data-i18n="language">Язык</span><select id="language">
+  <option lang="fr" value="fr">Français</option><option lang="en" value="en">English</option><option lang="ru" value="ru" selected>Русский</option><option lang="es" value="es">Español</option><option lang="ar" value="ar">العربية</option></select></label>
+  <button data-i18n="menu" type="button" id="menu" aria-expanded="false" aria-controls="nav">Меню</button></div></div>
+  <nav id="nav" class="wrap nav" aria-label="Меню"><a href="../../../lang/ru/" data-route="home" data-i18n="home" >Обзор</a><a href="../../../lang/ru/demande/" data-route="request" data-i18n="request" aria-current="page">Заявка</a><a href="../../../lang/ru/tribunal/" data-route="court" data-i18n="court" >Голосование</a><a href="../../../lang/ru/transparence/" data-route="proof" data-i18n="proof" >Прозрачность</a><a href="../../../lang/ru/token/" data-route="token" data-i18n="token" >Токен BILL</a><a href="../../../lang/ru/lots/" data-route="lots" data-i18n="lots" >Лоты</a><a href="../../../lang/ru/wallet/" data-route="wallet" data-i18n="wallet" >Кошелёк</a><a href="../../../lang/ru/validateurs/" data-route="validators" data-i18n="validators" >Валидаторы</a><a href="../../../lang/ru/conseil/" data-route="council" data-i18n="council" >Совет</a><a href="../../../lang/ru/antibot/" data-route="bot" data-i18n="bot" >Антибот</a></nav>
+</header>
+<div class="notice"><span data-i18n="risk" >Информация, не финансовый совет. Криптоактивы сопряжены с риском.</span></div>
+<main class="wrap" id="main">
+<section class="inner-head"><p class="eyebrow"><i></i><span data-i18n="mission" >Фонд солидарности в Base</span></p><h1 data-i18n="request" >Заявка</h1><p data-i18n="requestIntro" class="lead">Подготовьте счет локально. Статический Hub не проверяет личность, не принимает документы и не отправляет заявки.</p></section>
+<section class="surface reveal"><h2 data-i18n="prepare" >Подготовить заявку</h2><form id="draft-form" autocomplete="off"><label for="description"><span data-i18n="description" >Описание (без личных данных)</span></label><textarea id="description" minlength="12" maxlength="1200" required aria-describedby="paste"></textarea><p data-i18n="paste" id="paste" class="muted">Вставка в поле описания отключена; введите текст.</p><p data-i18n="keepLocal" id="local-note">Используйте только обезличенное или тестовое изображение. Файл и текст остаются во вкладке и удаляются при закрытии.</p><label for="invoice"><span data-i18n="image" >Скрытая копия счета (PNG, JPEG или WebP, до 5 МиБ)</span></label><input id="invoice" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="local-note" required><canvas id="invoice-preview" width="1" height="1" role="img" aria-label="Скрытая копия счета (PNG, JPEG или WebP, до 5 МиБ)" hidden></canvas><div class="actions"><button type="submit" class="primary" data-i18n="check">Проверить локально</button><button type="reset" data-i18n="clear">Очистить</button></div><output id="form-result" role="status"></output></form></section><section class="surface reveal"><h2 data-i18n="cases" >Статусы заявок в сети</h2><p data-i18n="rules" >24 часа после пятой проверки, до 20 % баланса за перевод и один перевод получателю за 30 дней.</p><p id="case-cap" hidden></p><ol id="cases" class="records"></ol><div class="actions" id="case-nav" hidden><button data-i18n="previous" type="button" id="prev" >Назад</button><button data-i18n="next" type="button" id="next" >Далее</button></div></section>
+<p class="back"><a href="../../../lang/ru/" data-route="home" data-i18n="back" >Вернуться к обзору</a></p>
+<section class="status" aria-label="Последнее чтение"><p><span class="status-dot" aria-hidden="true"></span><strong id="read-state" role="status">Недоступно</strong><span class="read-time"><span data-i18n="last" >Последнее чтение</span>: <time id="read-time">Недоступно</time></span></p><button data-i18n="refresh" type="button" id="refresh" >Обновить</button></section>
+<noscript><p data-i18n="jsRequired" >Для чтения Base и локальных проверок нужен JavaScript.</p></noscript>
+</main>
+<footer><div class="wrap foot"><div><strong data-i18n="brand" >BillPay Hub</strong><p data-i18n="privacy" >Без рекламного отслеживания. Hub запоминает только язык. У кошельков и RPC есть свои правила.</p></div><a href="https://github.com/trevio-TRVO/billpay-protocol" rel="noopener" data-i18n="source">Код и документация</a></div></footer>
+</body></html>

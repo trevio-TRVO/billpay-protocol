@@ -1,12 +1,12 @@
-name: Déployer BillPay Hub (Next.js) sur GitHub Pages
+name: Vérifier et déployer BillPay Hub sur GitHub Pages
 
 on:
   push:
     branches: ["main"]
-    paths: ["hub/**", "site/assets/favicon.svg", ".github/workflows/**", ".gitignore"]
+    paths: ["hub/**", "site/**", "site-tools/**", ".github/workflows/**", ".gitignore"]
   pull_request:
     branches: ["main"]
-    paths: ["hub/**", "site/assets/favicon.svg", ".github/workflows/**", ".gitignore"]
+    paths: ["hub/**", "site/**", "site-tools/**", ".github/workflows/**", ".gitignore"]
   workflow_dispatch:
 
 permissions:
@@ -42,11 +42,20 @@ jobs:
         run: npm run test:export
         working-directory: hub
 
-      - name: Upload de l'artifact
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+      - name: Vérifier les sources statiques et les pages V2
+        run: node site-tools/build.mjs && git diff --exit-code -- site && node --test site-tools/static.test.mjs
+
+      - name: Préparer l’export actuel
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.BILLPAY_PAGES_SOURCE != 'static-v2'
         uses: actions/upload-pages-artifact@v3
         with:
           path: hub/out
+
+      - name: Préparer la V2 statique
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.BILLPAY_PAGES_SOURCE == 'static-v2'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'

@@ -1,226 +1,49 @@
 <!doctype html>
-<html lang="fr" data-title="meta_title">
+<html lang="fr" dir="ltr" data-page="home" data-root="./">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BillPay Hub — Chaque échange règle une facture</title>
-<meta name="description" content="BillPay Protocol ($BILL) : une contribution de 10 % sur chaque échange, visible on-chain, finance le Fonds Solidaire qui paie des factures. Contrat sans owner, liquidité verrouillée à vie." data-i18n-content="meta_desc">
-<meta name="theme-color" content="#07111F">
-<link rel="canonical" href="https://trevio-trvo.github.io/billpay-protocol/">
-<link rel="alternate" hreflang="fr" href="https://trevio-trvo.github.io/billpay-protocol/">
-<link rel="alternate" hreflang="en" href="https://trevio-trvo.github.io/billpay-protocol/?lang=en">
-<link rel="alternate" hreflang="ru" href="https://trevio-trvo.github.io/billpay-protocol/?lang=ru">
-<link rel="alternate" hreflang="x-default" href="https://trevio-trvo.github.io/billpay-protocol/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#05070d">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: blob: https://*.walletconnect.com https://*.reown.com; connect-src 'self' https://cdn.jsdelivr.net https://mainnet.base.org https://*.walletconnect.com wss://*.walletconnect.com https://*.walletconnect.org wss://*.walletconnect.org https://*.reown.com wss://*.reown.com; frame-src https://verify.walletconnect.com https://verify.walletconnect.org">
+<title data-i18n="home">Tableau de bord · BillPay Hub</title>
+<meta name="description" content="BillPay destine une part des échanges de BILL à l’aide aux factures d’électricité et de chauffage. Suivez les règles et les données vérifiables du fonds sur Base." data-i18n="intro">
+<meta property="og:title" content="Tableau de bord · BillPay Hub">
+<meta property="og:description" content="BillPay destine une part des échanges de BILL à l’aide aux factures d’électricité et de chauffage. Suivez les règles et les données vérifiables du fonds sur Base.">
+<meta property="og:image" content="https://billpaytoken.com/assets/og-banner.png">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="BillPay Protocol">
-<meta property="og:title" content="BillPay Hub — Chaque échange règle une facture">
-<meta property="og:description" content="10 % de contribution, visible on-chain. Liquidité verrouillée à vie. Aucun owner.">
-<meta property="og:url" content="https://trevio-trvo.github.io/billpay-protocol/">
-<meta property="og:image" content="https://trevio-trvo.github.io/billpay-protocol/assets/og-banner.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://billpaytoken.com/">
 <meta property="og:locale" content="fr_FR">
-<meta property="og:locale:alternate" content="en_US">
-<meta property="og:locale:alternate" content="ru_RU">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="BillPay Hub — Chaque échange règle une facture">
-<meta name="twitter:description" content="10 % de contribution, visible on-chain. Liquidité verrouillée à vie. Aucun owner.">
-<meta name="twitter:image" content="https://trevio-trvo.github.io/billpay-protocol/assets/og-banner.png">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="style.css">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[
-{"@type":"Organization","name":"BillPay Protocol","url":"https://trevio-trvo.github.io/billpay-protocol/","logo":"https://trevio-trvo.github.io/billpay-protocol/assets/logo-512.png","sameAs":["https://github.com/trevio-TRVO/billpay-protocol","https://t.me/Billpayprotocolbot"]},
-{"@type":"WebSite","name":"BillPay Hub","url":"https://trevio-trvo.github.io/billpay-protocol/","inLanguage":["fr","en","ru"]}
-]}
-</script>
+<link rel="canonical" href="https://billpaytoken.com/">
+<link rel="alternate" hreflang="fr" href="https://billpaytoken.com/">
+<link rel="alternate" hreflang="en" href="https://billpaytoken.com/lang/en/">
+<link rel="alternate" hreflang="ru" href="https://billpaytoken.com/lang/ru/">
+<link rel="alternate" hreflang="es" href="https://billpaytoken.com/lang/es/">
+<link rel="alternate" hreflang="ar" href="https://billpaytoken.com/lang/ar/">
+<link rel="alternate" hreflang="x-default" href="https://billpaytoken.com/">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+<link rel="stylesheet" href="./assets/v2.css">
+<noscript><style>#nav:not(.open){display:grid}#menu{display:none}</style></noscript>
+<script type="module" src="./js/app.js"></script>
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
-<header class="top">
-<div class="bar-in">
-<a class="logo" href="./" aria-label="BillPay Protocol"><img src="assets/logo.svg" alt="" width="40" height="40"><span class="wm"><b>Bill<span>Pay</span></b><small>PROTOCOL · $BILL</small></span></a>
-<nav class="main" aria-label="Navigation principale" data-i18n-label="nav_label">
-<a href="#dashboard" data-i18n="nav_dash">Tableau de bord</a>
-<a href="#apply" data-i18n="nav_apply">Demandeurs</a>
-<a href="#votes" data-i18n="nav_votes">Votes</a>
-<a href="#governance" data-i18n="nav_gov">Gouvernance</a>
-<a href="#rules" data-i18n="nav_rules">Règles</a>
-<a href="#risks" data-i18n="nav_risks">Risques</a>
-<a href="wallets.html" data-i18n="nav_wallets">Wallets</a>
-<a href="https://github.com/trevio-TRVO/billpay-protocol" data-github rel="noopener" data-i18n="nav_github">GitHub</a>
-</nav>
-<div class="tools">
-<select id="lang" aria-label="Langue" data-i18n-label="lang_label"><option value="fr">FR</option><option value="en">EN</option><option value="ru">RU</option></select>
-<button type="button" id="wallet-btn" class="btn pri" data-i18n="w_connect">Connecter le wallet</button>
-<button type="button" id="wallet-switch" class="btn ghost" hidden data-i18n="w_switch">Passer sur Base</button>
-</div>
-<p id="wallet-status" class="status" role="status" aria-live="polite"></p>
-</div>
+<header class="mast"><div class="wrap top">
+  <a class="brand" href="./" data-route="home"><img src="./assets/favicon.svg" width="32" height="32" alt=""><span data-i18n="brand" >BillPay Hub</span></a>
+  <div class="head-tools"><span class="network"><i></i><span data-i18n="base" >Réseau Base</span></span>
+  <label class="lang"><span class="sr" data-i18n="language">Langue</span><select id="language">
+  <option lang="fr" value="fr" selected>Français</option><option lang="en" value="en">English</option><option lang="ru" value="ru">Русский</option><option lang="es" value="es">Español</option><option lang="ar" value="ar">العربية</option></select></label>
+  <button data-i18n="menu" type="button" id="menu" aria-expanded="false" aria-controls="nav">Menu</button></div></div>
+  <nav id="nav" class="wrap nav" aria-label="Menu"><a href="./" data-route="home" data-i18n="home" aria-current="page">Tableau de bord</a><a href="./demande/" data-route="request" data-i18n="request" >Demande</a><a href="./tribunal/" data-route="court" data-i18n="court" >Tribunal</a><a href="./transparence/" data-route="proof" data-i18n="proof" >Transparence</a><a href="./token/" data-route="token" data-i18n="token" >Jeton BILL</a><a href="./lots/" data-route="lots" data-i18n="lots" >Lots</a><a href="./wallet/" data-route="wallet" data-i18n="wallet" >Portefeuille</a><a href="./validateurs/" data-route="validators" data-i18n="validators" >Validateurs</a><a href="./conseil/" data-route="council" data-i18n="council" >Conseil</a><a href="./antibot/" data-route="bot" data-i18n="bot" >Anti-bot</a></nav>
 </header>
+<div class="notice"><span data-i18n="risk" >Information, pas un conseil financier. Les cryptoactifs sont risqués.</span></div>
+<main class="wrap" id="main">
 
-<main id="main" class="wrap">
-<section class="hero">
-<p class="pill" data-i18n="pill">Contrat sans owner · liquidité verrouillée à vie</p>
-<h1 data-i18n="hero_h">Le fonds qui paie les factures, voté par ses détenteurs.</h1>
-<p class="lead" data-i18n="hero_p">Chaque chiffre est lu directement sur le contrat. Rien n'est saisi à la main.</p>
-<div class="cta">
-<a id="cta-buy" class="btn pri" href="#contract" data-i18n="cta_buy">Acheter $BILL</a>
-<a class="btn ghost" href="#rules" data-i18n="cta_rules">Lire les règles</a>
-</div>
-</section>
+<section class="hero"><div class="orbit-art" data-three="hero" aria-hidden="true"></div><div class="hero-copy"><p class="eyebrow"><i></i><span data-i18n="mission" >Fonds solidaire sur Base</span></p><h1 data-i18n="headline" >L’énergie est un besoin. La solidarité est un choix.</h1><p data-i18n="intro" class="lead">BillPay destine une part des échanges de BILL à l’aide aux factures d’électricité et de chauffage. Suivez les règles et les données vérifiables du fonds sur Base.</p><div class="actions"><a href="./demande/" data-route="request" data-i18n="prepare" class="button primary">Préparer un dossier</a><a href="./transparence/" data-route="proof" data-i18n="readRules" class="button secondary">Voir les contrats</a></div></div><span class="hero-code" aria-hidden="true">BASE // 8453</span></section><div class="section-head"><h2 data-i18n="impact" >Suivi du fonds</h2><p data-i18n="settlement" >Un transfert de BILL ne confirme pas le règlement de la facture par le fournisseur.</p></div><div class="stats"><article class="surface metric reveal" data-tilt><h3 data-i18n="fund" >Solde du fonds</h3><output data-value="fund" data-i18n="na">Non disponible</output></article><article class="surface metric reveal" data-tilt><h3 data-i18n="paid" >Total transféré en BILL</h3><output data-value="paid" data-i18n="na">Non disponible</output></article><article class="surface metric reveal" data-tilt><h3 data-i18n="count" >Dossiers exécutés sur chaîne</h3><output data-value="count" data-i18n="na">Non disponible</output></article></div><section class="surface reveal"><h2 data-i18n="flow" >Contribution solidaire</h2><div class="distribution"><div class="chart-art" data-three="chart" aria-hidden="true"><div class="ring"></div><span>10 %</span></div><ul class="legend"><li><i data-color="aid" aria-hidden="true"></i><span data-i18n="aid" >Aide aux factures</span><b>5 %</b></li><li><i data-color="burn" aria-hidden="true"></i><span data-i18n="burn" >Brûlage</span><b>2 %</b></li><li><i data-color="ops" aria-hidden="true"></i><span data-i18n="ops" >Fonctionnement</span><b>2 %</b></li><li><i data-color="liquidity" aria-hidden="true"></i><span data-i18n="liquidity" >Liquidité</span><b>1 %</b></li></ul></div></section><p data-i18n="flowBody" class="annotation">10 % sur les achats et ventes via la paire de liquidité reconnue, pas sur les transferts ordinaires.</p><section class="surface reveal"><h2 data-i18n="cases" >État des dossiers sur chaîne</h2><p data-i18n="rules" >Délai de 24 h après la cinquième validation, limite de 20 % du solde par versement, et un versement par bénéficiaire tous les 30 jours.</p><p id="case-cap" hidden></p><ol id="cases" class="records"></ol><div class="actions" id="case-nav" hidden><button data-i18n="previous" type="button" id="prev" >Précédent</button><button data-i18n="next" type="button" id="next" >Suivant</button></div></section>
 
-<section id="dashboard" aria-labelledby="fund-h">
-<div class="glass fund">
-<h2 id="fund-h" data-i18n="fund_h">Fonds Solidaire</h2>
-<p class="inv" id="fund-invoice">Facture : —</p>
-<p class="muted" id="fund-p">5 % de chaque échange</p>
-<div class="progress" role="progressbar" aria-labelledby="fund-h" aria-valuemin="0" aria-valuemax="100" aria-valuetext="—"><i id="fund-bar"></i></div>
-</div>
-<h2 style="margin-top:32px" data-i18n="stats_h">Chiffres du contrat</h2>
-<div class="grid">
-<div class="glass stat"><div class="n" id="st-burned">—</div><div class="l" data-i18n="st_burned">Tokens brûlés</div></div>
-<div class="glass stat"><div class="n" id="st-liq">—</div><div class="l" data-i18n="st_liq">ETH ajouté en liquidité</div></div>
-<div class="glass stat"><div class="n" id="st-supply">—</div><div class="l" data-i18n="st_supply">Supply en circulation</div></div>
-<div class="glass stat"><div class="n" id="st-holders">—</div><div class="l" data-i18n="st_holders">Détenteurs</div></div>
-</div>
-<p class="muted" style="font-size:14px" data-i18n="stats_src">Source : relais de lecture du contrat.</p>
-</section>
-
-<section id="apply" aria-labelledby="apply-h">
-<h2 id="apply-h" data-i18n="apply_h">Espace Demandeurs</h2>
-<p class="muted" data-i18n="apply_p"></p>
-<div class="glass">
-<p class="status" id="apply-wallet" role="status" aria-live="polite"></p>
-<form id="apply-form" novalidate>
-<div class="field">
-<label for="apply-amount" data-i18n="apply_amount">Montant demandé (BILL)</label>
-<input id="apply-amount" inputmode="decimal" autocomplete="off" placeholder="1000">
-</div>
-<div class="field">
-<label for="apply-provider" data-i18n="apply_provider">Fournisseur</label>
-<input id="apply-provider" autocomplete="off" placeholder="Énergie / Électricité de…">
-</div>
-<div class="field">
-<label for="apply-urgency" data-i18n="apply_urgency">Urgence</label>
-<select id="apply-urgency">
-<option value="low" data-i18n="apply_u_low">Basse</option>
-<option value="medium" data-i18n="apply_u_med">Moyenne</option>
-<option value="high" data-i18n="apply_u_high">Haute</option>
-</select>
-</div>
-<div class="field">
-<label for="apply-desc" data-i18n="apply_desc">Description (saisie manuelle, sans collage)</label>
-<textarea id="apply-desc" rows="4" maxlength="500"></textarea>
-</div>
-<div class="field">
-<label for="apply-file" data-i18n="apply_file">Facture (PDF ou image, max 5 Mo)</label>
-<input id="apply-file" type="file" accept=".pdf,.png,.jpg,.jpeg">
-<p class="muted" id="apply-file-info" data-i18n="apply_file_none" style="font-size:14px;margin:8px 0 0">Aucun fichier choisi.</p>
-</div>
-<p class="muted" data-i18n="apply_privacy" style="font-size:14px"></p>
-<div class="note warn" id="apply-warn" hidden style="margin:12px 0;padding:10px 14px;border-left:4px solid #e5484d;border-radius:10px">
-<p data-i18n="apply_ai_flag"></p>
-</div>
-<div id="apply-preview"></div>
-<div class="row" style="margin-top:16px">
-<button type="submit" class="btn pri" data-i18n="apply_submit">Déposer la demande</button>
-</div>
-<p class="status" id="apply-msg" role="status" aria-live="polite"></p>
-</form>
-</div>
-</section>
-
-<section id="votes" aria-labelledby="votes-h">
-<h2 id="votes-h" data-i18n="votes_h">Votes en cours</h2>
-<p class="muted" data-i18n="votes_p">Les détenteurs votent sur le paiement des factures.</p>
-<div class="grid" id="votes-list"></div>
-<p class="status" id="vote-msg" role="status" aria-live="polite"></p>
-<h3 style="margin-top:28px" data-i18n="spam_h">Anti-spam : faux dossiers et bots</h3>
-<p class="muted" data-i18n="spam_p"></p>
-<p class="muted" style="font-size:14px"><em data-i18n="spam_mock">Aperçu illustratif, aucune donnée réelle.</em></p>
-<div class="grid">
-<article class="glass vote spam" aria-label="Spammer">
-<span class="flag" data-i18n="spam_flag">Spammer</span>
-<h3 data-i18n="spam_t1">Facture sans justificatif</h3>
-<p class="muted" data-i18n="spam_d1"></p>
-<div class="row"><button type="button" class="btn pri" disabled data-i18n="vote_do_for">Voter pour</button><button type="button" class="btn ghost" disabled data-i18n="vote_do_against">Voter contre</button></div>
-<p class="muted" style="font-size:14px;margin:10px 0 0" data-i18n="spam_hidden">Exclu du décompte.</p>
-</article>
-<article class="glass vote spam" aria-label="Spammer">
-<span class="flag" data-i18n="spam_flag">Spammer</span>
-<h3 data-i18n="spam_t2">Compte automatisé</h3>
-<p class="muted" data-i18n="spam_d2"></p>
-<div class="row"><button type="button" class="btn pri" disabled data-i18n="vote_do_for">Voter pour</button><button type="button" class="btn ghost" disabled data-i18n="vote_do_against">Voter contre</button></div>
-<p class="muted" style="font-size:14px;margin:10px 0 0" data-i18n="spam_hidden">Exclu du décompte.</p>
-</article>
-</div>
-</section>
-
-<section id="governance" aria-labelledby="gov-h">
-<div class="glass">
-<h2 id="gov-h" data-i18n="gov_h">Gouvernance</h2>
-<p data-i18n="gov_p1"></p>
-<p data-i18n="gov_p2"></p>
-<p data-i18n="gov_p3"></p>
-<h3 style="margin-top:20px" data-i18n="proof_h">Preuve de paiement</h3>
-<p data-i18n="proof_p"></p>
-</div>
-</section>
-
-<section id="rules" aria-labelledby="rules-h">
-<div class="glass">
-<h2 id="rules-h" data-i18n="rules_h">Règles</h2>
-<ul class="rules">
-<li data-i18n="rules_1"></li><li data-i18n="rules_2"></li><li data-i18n="rules_3"></li><li data-i18n="rules_4"></li><li data-i18n="rules_5"></li><li data-i18n="rules_6"></li>
-</ul>
-<h3 style="margin-top:24px" data-i18n="split_h">Répartition de la contribution de 10 %</h3>
-<div class="split">
-<div><b>5 %</b><span data-i18n="split_fund">Fonds Solidaire</span></div>
-<div><b>2 %</b><span data-i18n="split_mgmt">Gestion</span></div>
-<div><b>1 %</b><span data-i18n="split_liq">Auto-liquidité</span></div>
-<div><b>2 %</b><span data-i18n="split_burn">Burn</span></div>
-</div>
-</div>
-</section>
-
-<section id="risks" aria-labelledby="risks-h">
-<div class="glass note warn" style="border-left-width:4px">
-<h2 id="risks-h" data-i18n="risks_h">Risques</h2>
-<ul class="rules">
-<li data-i18n="risks_1"></li><li data-i18n="risks_2"></li><li data-i18n="risks_3"></li><li data-i18n="risks_4"></li><li data-i18n="risks_5"></li>
-</ul>
-</div>
-</section>
-
-<section id="partners" aria-labelledby="ads-h">
-<h2 id="ads-h" data-i18n="ads_h">Espace partenaires</h2>
-<p class="muted" data-i18n="ads_p"></p>
-<div class="grid">
-<aside class="glass ad"><span class="lbl" data-i18n="ads_label">Emplacement sponsorisé</span><h3 data-i18n="ads_slot">Votre marque ici</h3><p class="muted" data-i18n="ads_slot_d"></p></aside>
-<aside class="glass ad"><span class="lbl" data-i18n="ads_label">Emplacement sponsorisé</span><h3 data-i18n="ads_slot">Votre marque ici</h3><p class="muted" data-i18n="ads_slot_d"></p></aside>
-</div>
-</section>
+<section class="status" aria-label="Dernière lecture"><p><span class="status-dot" aria-hidden="true"></span><strong id="read-state" role="status">Non disponible</strong><span class="read-time"><span data-i18n="last" >Dernière lecture</span>: <time id="read-time">Non disponible</time></span></p><button data-i18n="refresh" type="button" id="refresh" >Actualiser</button></section>
+<noscript><p data-i18n="jsRequired" >JavaScript est nécessaire pour les lectures Base et les contrôles locaux.</p></noscript>
 </main>
-
-<footer class="foot" id="contract">
-<div class="wrap">
-<p><strong data-i18n="foot_contract">Contrat</strong> <span id="foot-contract" class="addr"></span></p>
-<p data-i18n="foot_split"></p>
-<p class="risk-foot" data-i18n="foot_risk"></p>
-<div class="links">
-<a id="foot-bot" href="https://t.me/Billpayprotocolbot" rel="noopener" data-i18n="foot_bot">Bot Telegram</a>
-<a id="foot-group" href="#" rel="noopener" data-i18n="foot_group">Groupe Telegram</a>
-<a data-github href="https://github.com/trevio-TRVO/billpay-protocol" rel="noopener">GitHub</a>
-</div>
-<p data-i18n="foot_privacy"></p>
-</div>
-</footer>
-<script type="module" src="main.js"></script>
-</body>
-</html>
+<footer><div class="wrap foot"><div><strong data-i18n="brand" >BillPay Hub</strong><p data-i18n="privacy" >Sans suivi publicitaire. Seule la langue est mémorisée par le Hub. Un wallet externe ou le RPC peut appliquer sa propre politique.</p></div><a href="https://github.com/trevio-TRVO/billpay-protocol" rel="noopener" data-i18n="source">Code et documentation</a></div></footer>
+</body></html>

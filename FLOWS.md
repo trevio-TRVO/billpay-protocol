@@ -1,6 +1,14 @@
 # Vérification BillPay Hub
 
-## Point de départ en production
+## Recette de la V2 statique (`site/`)
+
+- Ouvrir le tableau de bord et chacune des neuf rubriques ; contrôler les URL canoniques, les anciens accès, le menu mobile et le retour depuis une 404.
+- Changer de langue puis naviguer : le choix suit le parcours, l’arabe active RTL, les nombres et les dates suivent la langue. En navigation privée ou sans stockage, le site reste utilisable.
+- Sans configuration : aucun chiffre opérationnel, aucune transaction, aucun dépôt de justificatif, aucun vote public. Sans wallet et sur un mauvais réseau : instructions visibles, aucune signature ni transaction.
+- Tester les lectures avec un RPC simulé ; vérifier les dossiers, le lot et ses étapes, le refus de changement de réseau et l’export. Ouvrir le formulaire local avec une image factice, vérifier le résultat sans transfert, puis effacer.
+- À 375 px et sur ordinateur : visibilité du focus, absence de débordement, textes et métriques lisibles, animation désactivable et repli sans WebGL.
+
+## Point de départ historique avant la première correction
 - La racine sert le README Jekyll. `/site/` sert l'ancienne maquette et `/hub/` retourne une 404.
 - La maquette présente le portefeuille, les votes, les règles, la gouvernance, les risques et les langues FR/EN/RU. Sa configuration n'indique aucune source active pour les chiffres, les votes ou les achats.
 - Le Hub Next.js du dépôt n'est pas déployé et ses modules de données et de connexion ne sont pas suivis par Git.
