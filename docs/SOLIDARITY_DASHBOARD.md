@@ -10,7 +10,7 @@ Objectif central : **faire évoluer le projet en le protégeant** contre les fau
 
 1. **Dépôt de la demande** : facture téléversée (données privées masquées) **plus une description** écrite par le demandeur. Le collage est bloqué dans le champ (saisie manuelle uniquement).
 2. **Contrôle par IA, automatique** : analyse de la facture et de la description (cohérence, doublons, falsification, texte généré en masse, comportement de bot). L'IA **classe et signale** ; elle ne détient aucune clé de paiement.
-3. **Validation par au moins 5 acquéreurs de lots** : seuls les wallets ayant acheté un lot (preuve vérifiable dans `CommunityLots.grants`) ont un compte validateur spécial. Il faut **au moins 5 validateurs distincts** qui approuvent.
+3. **Validation par au moins 5 acquéreurs de lots** : seuls les wallets ayant acheté un lot depuis **au moins 30 jours** (preuve vérifiable dans `CommunityLots.grants`, anti-collusion issue #10) ont un compte validateur spécial. Il faut **au moins 5 validateurs distincts** qui approuvent.
 4. **Vote public** : tout visiteur identifié (Google ou équivalent, une voix par compte) peut voter OUI ou NON. Il sert de signal communautaire.
 5. **Paiement automatique** : dès que les conditions sont réunies (dossier non signalé par l'IA, ≥ 5 validations de détenteurs de lots, vote public favorable), le contrat du `solidarityWallet` paie la facture au prochain cycle de 24 h. Aucune intervention manuelle.
 

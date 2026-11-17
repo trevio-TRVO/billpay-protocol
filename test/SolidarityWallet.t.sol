@@ -20,7 +20,14 @@ contract MockToken {
 
 contract MockLots {
     mapping(address => bool) public hasBought;
-    function set(address a) external { hasBought[a] = true; }
+    mapping(address => uint64) public grantStart;
+    /// @param age âge du lot en secondes (0 = acheté à l'instant)
+    function set(address a, uint64 age) external {
+        hasBought[a] = true;
+        grantStart[a] = age >= block.timestamp ? 0 : uint64(block.timestamp) - age;
+    }
+    function grantCount(address a) external view returns (uint256) { return hasBought[a] ? 1 : 0; }
+    function grants(address a, uint256) external view returns (uint128, uint128, uint64) { return (1e18, 0, grantStart[a]); }
 }
 
 contract SolidarityWalletTest {
@@ -32,7 +39,7 @@ contract SolidarityWalletTest {
     address[10] council;
 
     function setUp() public {
-        vm.warp(1_000_000);
+        vm.warp(100_000_000); // assez loin pour que l'ancienneté de 30 j des lots de test passe
         token = new MockToken(); lots = new MockLots();
         for (uint256 i; i < 10; i++) council[i] = address(uint160(0xC000 + i));
         address[] memory sigs = new address[](3);
@@ -40,7 +47,7 @@ contract SolidarityWalletTest {
         reg = new CouncilRegistry(founder, council, sigs, 2);
         w = new SolidarityWallet(IERC20Min(address(token)), ICommunityLots(address(lots)), founder, ICouncilRegistry(address(reg)));
         token.mint(address(w), 1_000e18);
-        for (uint256 i; i < 6; i++) lots.set(address(uint160(0xA000 + i)));
+        for (uint256 i; i < 6; i++) lots.set(address(uint160(0xA000 + i)), uint64(40 days));
     }
 
     function _validate(uint256 id, uint256 n) internal {
@@ -89,6 +96,19 @@ contract SolidarityWalletTest {
     function testNonLotHolderCannotValidate() public {
         uint256 id = w.createRequest(payee, 100e18, bytes32(0));
         vm.prank(address(0xDEAD)); vm.expectRevert("not a lot holder"); w.validate(id);
+    }
+
+    function testFreshLotHolderCannotValidate() public {
+        uint256 id = w.createRequest(payee, 100e18, bytes32(0));
+        lots.set(address(0xBEEF), 0); // lot acheté à l'instant
+        vm.prank(address(0xBEEF)); vm.expectRevert("lot too young"); w.validate(id);
+    }
+
+    function testSeniorityUnlocksValidation() public {
+        uint256 id = w.createRequest(payee, 100e18, bytes32(0));
+        lots.set(address(0xBEEF), 0);
+        vm.warp(block.timestamp + 30 days); // ancienneté exacte : 30 j
+        vm.prank(address(0xBEEF)); w.validate(id);
     }
 
     function testCycleDelay() public {
