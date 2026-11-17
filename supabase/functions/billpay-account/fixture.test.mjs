@@ -71,6 +71,22 @@ Deno.test("account API: configured origin, independent access, MFA and wallet si
     await import("./index.ts?configured");
     assert.equal((await invoke("profile", {}, "invalid")).status, 401);
     assert.equal((await invoke("profile", {}, aal1, "https://other.example")).status, 403);
+    const raw = (body, headers = {}) => handler(new Request(`${origin}/edge`, {
+      method: "POST", headers: { Origin: origin, Authorization: `Bearer ${aal1}`, ...headers }, body,
+    }));
+    assert.equal((await raw("{}", { "Content-Length": "8193" })).status, 413);
+    assert.equal((await raw(new Uint8Array([0xff]))).status, 400);
+    assert.equal((await invoke("profile", { padding: "a".repeat(8159) })).status, 200);
+    let cancelled = false;
+    const stream = new ReadableStream({
+      start(controller) {
+        controller.enqueue(new TextEncoder().encode('{"action":"profile","pad":"'));
+        controller.enqueue(new TextEncoder().encode("é".repeat(4096)));
+      },
+      cancel() { cancelled = true; },
+    });
+    assert.equal((await raw(stream)).status, 413);
+    assert.equal(cancelled, true);
     assert.equal((await invoke("profile")).body.requiresMfa, true);
     assert.equal((await invoke("workspace", { role: "applicant" })).status, 403);
     assert.equal((await invoke("workspace", { role: "founder" })).status, 403);

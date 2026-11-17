@@ -27,6 +27,32 @@ const chain = baseRpc ? createPublicClient({ chain: base, transport: http(baseRp
 class Rejected extends Error {
   constructor(public status: number, public code: string) { super(code); }
 }
+const MAX_REQUEST_BYTES = 8192;
+
+async function readRequest(req: Request) {
+  const reader = req.body?.getReader();
+  if (!reader) throw new Rejected(400, "invalid_request");
+  const buffer = new Uint8Array(MAX_REQUEST_BYTES);
+  let size = 0;
+  try {
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      if (value.byteLength > MAX_REQUEST_BYTES - size) {
+        void reader.cancel().catch(() => {});
+        throw new Rejected(413, "invalid_request");
+      }
+      buffer.set(value, size);
+      size += value.byteLength;
+    }
+    return JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(buffer.subarray(0, size)));
+  } catch (error) {
+    if (error instanceof Rejected) throw error;
+    throw new Rejected(400, "invalid_request");
+  } finally {
+    reader.releaseLock();
+  }
+}
 const addressOf = (value: unknown): Address | null =>
   typeof value === "string" && isAddress(value, { strict: false }) && !/^0x0{40}$/i.test(value)
     ? getAddress(value.toLowerCase()) : null;
@@ -107,14 +133,16 @@ Deno.serve(async (req) => {
   try {
     const token = req.headers.get("Authorization")?.match(/^Bearer ([a-zA-Z0-9_.-]+)$/)?.[1];
     if (!token || token.length > 8192) throw new Rejected(401, "unauthorized");
+    const declaredSize = req.headers.get("Content-Length");
+    if (declaredSize !== null) {
+      if (!/^\d+$/.test(declaredSize)) throw new Rejected(400, "invalid_request");
+      if (Number(declaredSize) > MAX_REQUEST_BYTES) throw new Rejected(413, "invalid_request");
+    }
     const { data, error } = await client.auth.getUser(token);
     if (error || !data.user?.email_confirmed_at) throw new Rejected(401, "unauthorized");
     const user = data.user.id;
     const elevated = safeAal(token);
-    const bodyText = await req.text();
-    if (bodyText.length > 8192) throw new Rejected(413, "invalid_request");
-    let body;
-    try { body = JSON.parse(bodyText); } catch { throw new Rejected(400, "invalid_request"); }
+    const body = await readRequest(req);
 
     switch (body?.action) {
       case "profile":
