@@ -69,4 +69,5 @@ Spécification : [docs/SOLIDARITY_DASHBOARD.md](docs/SOLIDARITY_DASHBOARD.md) (t
 | 2026-11-09 | PR #5 fusionnée. Archivage du code V2 (TREVIO) dans `v2/`. V1 en attente. |
 | 2026-11-09 | Prix des lots : pionnier 10 USDC (100 000 BILL fixes) ; lots suivants 50 USDC pour 100 USDC de BILL au cours TWAP (x2). |
 | 2026-11-09 | Au lancement : 100 pionniers uniquement. Les séries à 50 USDC s'ouvrent via `openSeries()` quand le TWAP atteint x10 (0,001 USDC/BILL). 49 tests. |
-| À venir | Phase 0 (#2), V4 programme de participation (#3), anti-sybil (#4), audit. |
+| 2026-11-17 | Dossier de décisions `docs/DECISIONS.md` : Phase 0 = statu quo prix juste (#2), anti-sybil en défense en profondeur + paramètres finaux 50 USDC / 100 USDC (#4), vote public consultatif sans clé (#7), V4 en multisigs 3/5 (#3), priorité FIFO si fonds insuffisant. Tests vérifiés : 56 tests, 0 échec. |
+| À venir | V4 programme de participation (#3), site tableau de bord (#6), audit. |
