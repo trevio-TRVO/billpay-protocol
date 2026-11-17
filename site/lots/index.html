@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr" dir="ltr" data-page="lots" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#05070d">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data: blob: https://*.walletconnect.com https://*.reown.com; connect-src 'self' https://cdn.jsdelivr.net https://mainnet.base.org https://*.walletconnect.com wss://*.walletconnect.com https://*.walletconnect.org wss://*.walletconnect.org https://*.reown.com wss://*.reown.com; frame-src https://verify.walletconnect.com https://verify.walletconnect.org">
+<title data-i18n="lots">Lots · BillPay Hub</title>
+<meta name="description" content="100 lots pionniers : 10 USDC pour 100 000 BILL chacun. Les séries suivantes s’ouvrent à partir du seuil TWAP de 10 fois le prix initial et requièrent l’appel openSeries(). Un achat par wallet." data-i18n="lotsIntro">
+<meta property="og:title" content="Lots · BillPay Hub">
+<meta property="og:description" content="100 lots pionniers : 10 USDC pour 100 000 BILL chacun. Les séries suivantes s’ouvrent à partir du seuil TWAP de 10 fois le prix initial et requièrent l’appel openSeries(). Un achat par wallet.">
+<meta property="og:image" content="https://billpaytoken.com/assets/og-banner.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://billpaytoken.com/lots/">
+<meta property="og:locale" content="fr_FR">
+<link rel="canonical" href="https://billpaytoken.com/lots/">
+<link rel="alternate" hreflang="fr" href="https://billpaytoken.com/lots/">
+<link rel="alternate" hreflang="en" href="https://billpaytoken.com/lang/en/lots/">
+<link rel="alternate" hreflang="ru" href="https://billpaytoken.com/lang/ru/lots/">
+<link rel="alternate" hreflang="es" href="https://billpaytoken.com/lang/es/lots/">
+<link rel="alternate" hreflang="ar" href="https://billpaytoken.com/lang/ar/lots/">
+<link rel="alternate" hreflang="x-default" href="https://billpaytoken.com/lots/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/v2.css">
+<noscript><style>#nav:not(.open){display:grid}#menu{display:none}</style></noscript>
+<script type="module" src="../js/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
+<header class="mast"><div class="wrap top">
+  <a class="brand" href="../" data-route="home"><img src="../assets/favicon.svg" width="32" height="32" alt=""><span data-i18n="brand" >BillPay Hub</span></a>
+  <div class="head-tools"><span class="network"><i></i><span data-i18n="base" >Réseau Base</span></span>
+  <label class="lang"><span class="sr" data-i18n="language">Langue</span><select id="language">
+  <option lang="fr" value="fr" selected>Français</option><option lang="en" value="en">English</option><option lang="ru" value="ru">Русский</option><option lang="es" value="es">Español</option><option lang="ar" value="ar">العربية</option></select></label>
+  <button data-i18n="menu" type="button" id="menu" aria-expanded="false" aria-controls="nav">Menu</button></div></div>
+  <nav id="nav" class="wrap nav" aria-label="Menu"><a href="../" data-route="home" data-i18n="home" >Tableau de bord</a><a href="../demande/" data-route="request" data-i18n="request" >Demande</a><a href="../tribunal/" data-route="court" data-i18n="court" >Tribunal</a><a href="../transparence/" data-route="proof" data-i18n="proof" >Transparence</a><a href="../token/" data-route="token" data-i18n="token" >Jeton BILL</a><a href="../lots/" data-route="lots" data-i18n="lots" aria-current="page">Lots</a><a href="../wallet/" data-route="wallet" data-i18n="wallet" >Portefeuille</a><a href="../validateurs/" data-route="validators" data-i18n="validators" >Validateurs</a><a href="../conseil/" data-route="council" data-i18n="council" >Conseil</a><a href="../antibot/" data-route="bot" data-i18n="bot" >Anti-bot</a></nav>
+</header>
+<div class="notice"><span data-i18n="risk" >Information, pas un conseil financier. Les cryptoactifs sont risqués.</span></div>
+<main class="wrap" id="main">
+<section class="inner-head"><p class="eyebrow"><i></i><span data-i18n="mission" >Fonds solidaire sur Base</span></p><h1 data-i18n="lots" >Lots</h1><p data-i18n="lotsIntro" class="lead">100 lots pionniers : 10 USDC pour 100 000 BILL chacun. Les séries suivantes s’ouvrent à partir du seuil TWAP de 10 fois le prix initial et requièrent l’appel openSeries(). Un achat par wallet.</p></section>
+<div class="stats"><article class="surface metric reveal" data-tilt><h3 data-i18n="pioneer" >Lots pionniers vendus</h3><output data-value="pioneer" data-i18n="na">Non disponible</output></article><article class="surface metric reveal" data-tilt><h3 data-i18n="series" >Séries ouvertes</h3><output data-value="series" data-i18n="na">Non disponible</output></article><article class="surface metric reveal" data-tilt><h3 data-i18n="stock" >Lots de série disponibles</h3><output data-value="stock" data-i18n="na">Non disponible</output></article><article class="surface metric reveal" data-tilt><h3 data-i18n="oracle" >BILL par lot de série (TWAP)</h3><output data-value="oracle" data-i18n="na">Non disponible</output></article></div><section class="surface reveal"><h2 data-i18n="connect" >Connecter un portefeuille</h2><div class="actions"><label for="providers"><span data-i18n="selectWallet" >Portefeuille détecté</span><select id="providers" disabled></select></label><button data-i18n="connect" type="button" id="connect" disabled>Connecter un portefeuille</button><button id="walletconnect" type="button" disabled>WalletConnect</button><button data-i18n="switch" type="button" id="switch" hidden>Changer de réseau</button><button data-i18n="disconnect" type="button" id="disconnect" hidden>Déconnecter</button></div><p role="status" id="wallet-state"></p><p id="wc-state">WalletConnect n’est pas configuré.</p><output id="wallet-address" dir="ltr"></output></section><section class="surface reveal"><h2 data-i18n="unlock" >Déblocage du lot</h2><p data-i18n="unlockBody" >Blocage de 45 jours, puis déblocage linéaire sur 30 jours.</p><p data-i18n="txOff" id="tx-off">Achats et réclamations désactivés tant que la configuration officielle n’est pas validée.</p><div class="actions"><button type="button" id="open-series" hidden>openSeries()</button><button data-i18n="approval" type="button" id="approveP" hidden>Autoriser le montant USDC exact</button><button data-i18n="approval" type="button" id="approveS" hidden>Autoriser le montant USDC exact</button><button data-i18n="buyP" type="button" id="buyP" hidden>Acheter un lot pionnier</button><button data-i18n="buyS" type="button" id="buyS" hidden>Acheter un lot de série</button></div><ol id="grants" class="records"></ol><p role="status" id="tx-result"></p></section>
+<p class="back"><a href="../" data-route="home" data-i18n="back" >Revenir au tableau de bord</a></p>
+<section class="status" aria-label="Dernière lecture"><p><span class="status-dot" aria-hidden="true"></span><strong id="read-state" role="status">Non disponible</strong><span class="read-time"><span data-i18n="last" >Dernière lecture</span>: <time id="read-time">Non disponible</time></span></p><button data-i18n="refresh" type="button" id="refresh" >Actualiser</button></section>
+<noscript><p data-i18n="jsRequired" >JavaScript est nécessaire pour les lectures Base et les contrôles locaux.</p></noscript>
+</main>
+<footer><div class="wrap foot"><div><strong data-i18n="brand" >BillPay Hub</strong><p data-i18n="privacy" >Sans suivi publicitaire. Seule la langue est mémorisée par le Hub. Un wallet externe ou le RPC peut appliquer sa propre politique.</p></div><a href="https://github.com/trevio-TRVO/billpay-protocol" rel="noopener" data-i18n="source">Code et documentation</a></div></footer>
+</body></html>

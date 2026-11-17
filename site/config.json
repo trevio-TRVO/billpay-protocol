@@ -1,0 +1,16 @@
+{
+  "chainId": 8453,
+  "rpcUrl": "https://mainnet.base.org",
+  "explorer": "https://basescan.org",
+  "walletConnectProjectId": "",
+  "transactionsEnabled": false,
+  "deploymentBlock": null,
+  "contracts": {
+    "BillPayProtocol": "",
+    "CommunityLots": "",
+    "SolidarityWallet": "",
+    "CouncilRegistry": "",
+    "AutoLiquidity": "",
+    "MonthlyVesting": ""
+  }
+}
