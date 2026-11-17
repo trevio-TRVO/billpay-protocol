@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AppShell } from "@/components/app-shell";
-import { WalletProvider } from "@/lib/wallet";
-import { StoreProvider } from "@/lib/store";
 
 export const metadata: Metadata = {
-  title: "BillPay Hub — Protocole de solidarité sur Base",
+  title: { default: "BillPay Hub | Aide aux factures d’énergie", template: "%s | BillPay Hub" },
   description:
-    "BillPay Protocol (BILL) : contribution de solidarité de 10 % sur les échanges, paiement direct de factures d'énergie, validation par 5 acquéreurs de lots, vote public et conseil communautaire. Réseau Base.",
+    "BillPay Protocol prévoit de financer des factures d’énergie avec une part des échanges de BILL sur Base. Découvrez les règles du fonds et l’état des démarches.",
+  metadataBase: new URL("https://billpaytoken.com"),
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -26,11 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <StoreProvider>
-          <WalletProvider>
-            <AppShell>{children}</AppShell>
-          </WalletProvider>
-        </StoreProvider>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

@@ -5,7 +5,7 @@ export default function NotFound() {
     <div className="flex flex-col items-center gap-4 py-20 text-center">
       <h1 className="font-display text-4xl font-extrabold text-primary tnum">404</h1>
       <p className="max-w-sm text-sm text-muted-foreground">
-        Page introuvable. Le protocole n'a pas d'admin, mais il a un plan : revenir au tableau de bord.
+        Cette adresse ne correspond pas à une page du Hub. Revenez au tableau de bord pour retrouver les rubriques du projet.
       </p>
       <Link
         href="/"

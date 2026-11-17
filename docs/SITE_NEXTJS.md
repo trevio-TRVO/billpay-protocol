@@ -1,41 +1,20 @@
-# Site web Next.js — BillPay Hub
+# BillPay Hub sur BillPayToken.com
 
-Remplace progressivement le site statique Jekyll (`site/`) par une application **Next.js 15 en export statique**, hébergée sur GitHub Pages avec le domaine personnalisé **billpaytoken.com**.
+## Publication
 
-## Ce qui a été fait
+GitHub Pages servait la racine de la branche `site-pro` : le README apparaissait en page d'accueil et l'ancienne maquette sous `/site/`. Le Hub Next.js est dans `hub/` sur `main`. Le workflow `nextjs-pages.yml` construit et vérifie son export. Seule une exécution sur `main` peut déployer `hub/out/` ; les PR lancent uniquement le build et les tests.
 
-- Portage complet du BillPay Hub en Next.js (App Router, TypeScript, Tailwind, shadcn/radix, Recharts), dossier `hub/`.
-- Export statique pur (`output: "export"`, `trailingSlash: true`) : aucune dépendance serveur, compatible GitHub Pages.
-- Persistance des données de démonstration dans `localStorage` (clé `billpay-hub-db-v1`) — identique au seed du backend de la version précédente.
-- Persistance de la session wallet et de l'identification de vote (`localStorage`) : survit aux rechargements et navigations directes.
-- Workflow de déploiement `.github/workflows/nextjs-pages.yml` : build `hub/out/` puis publication via `actions/deploy-pages`. L'ancien workflow Jekyll (`jekyll-gh-pages.yml`) est retiré dans la même PR.
-- `hub/public/CNAME` contient `billpaytoken.com` ; `.nojekyll` évite le traitement Jekyll (dossier `_next/`).
+1. Intégrer les modifications dans `main`.
+2. Dans [Settings → Pages](https://github.com/trevio-TRVO/billpay-protocol/settings/pages), sélectionner **GitHub Actions** dans **Build and deployment → Source**. Conserver `billpaytoken.com` dans **Custom domain** et conserver HTTPS. Le domaine fonctionne déjà : ne pas remplacer ses enregistrements DNS pour changer la source de build.
+3. Dans [Actions → Déployer BillPay Hub](https://github.com/trevio-TRVO/billpay-protocol/actions/workflows/nextjs-pages.yml), lancer le workflow sur `main` s'il n'a pas déjà réussi après le changement de source. Vérifier la page d'accueil, `/demande/`, `/tribunal/`, `/site/#apply` et la redirection `www` → domaine principal.
+4. Si la bascule doit être annulée, rétablir temporairement la source `site-pro` / `(root)`. Cette branche et l'ancienne maquette restent intactes.
 
-## Pages
+Référence : [Configurer la source de publication GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
-| Route | Contenu |
-|---|---|
-| `/` | Tableau de bord — compteur d'impact, fonds, prochaine échéance |
-| `/token/` | Token BILL — tokenomique, répartition 10 %, charts |
-| `/wallet/` | Interface wallet — soldes, claim des lots, vesting |
-| `/lots/` | Lots communautaires — pionniers, séries, achat |
-| `/demande/` | Dépôt de candidature (factures) |
-| `/tribunal/` | Vote préliminaire public (1 voix/compte identifié) |
-| `/validateurs/` | Espace validateurs — 5 validations on-chain |
-| `/conseil/` | Gouvernance — conseil d'administration, approbations, cycle 24 h |
-| `/antibot/` | Contrôle IA & anti-bot — pipeline 5 barrières, journal d'audit |
-| `/transparence/` | Paiements, journal, risque |
+## Sources à raccorder avant ouverture
 
-## Déploiement
-
-1. La PR fusionne `hub-nextjs` → `main`.
-2. Le workflow `nextjs-pages.yml` se déclenche (chemins `hub/**`), construit `hub/out/` et déploie.
-3. Pré-requis unique : **Settings → Pages → Build and deployment → Source = GitHub Actions**.
-4. Le DNS est déjà en place : `billpaytoken.com` (CNAME → `trevio-TRVO.github.io/billpay-protocol`, proxy Cloudflare actif). Le fichier `CNAME` dans `hub/public/` déclare le domaine côté Pages.
-
-Note : avec le proxy Cloudflare, le site est servi en HTTPS ; vérifier que « Always Use HTTPS » est actif.
-
-## Après la fusion
-
-- Le dossier `site/` (maquette Jekyll) n'est plus déployé mais reste dans l'historique du dépôt.
-- Prochaine étape naturelle : brancher wagmi/viem sur les contrats réels (Base) en remplacement des wallets de démonstration.
+- **Impact** : obtenir le réseau, les adresses Base officielles de BILL et du `SolidarityWallet`, ainsi que le bloc de déploiement ; vérifier le code déployé. L'interface doit afficher le solde dans l'unité du contrat (BILL) et sourcer chaque versement sur chaîne. Une adresse ayant reçu un versement ne suffit pas à compter une famille.
+- **Dépôt de factures** : mettre en place un service protégé, un stockage chiffré et une politique de conservation, de masquage et d'accès. Ne pas publier les dossiers ni envoyer de factures sur chaîne.
+- **Vote public** : mettre en place l'identification et le stockage partagé des votes, appliqués côté serveur. Le vote reste consultatif.
+- **Versements** : vérifier le circuit réel entre le paiement en BILL par `SolidarityWallet` et le règlement d'une facture, ainsi que le mécanisme chargé d'exécuter la transaction éligible. Le contrat impose un délai par dossier, pas une échéance globale garantie.
+- **Lots et gouvernance** : vérifier les contrats et leurs paramètres avant d'activer une lecture ou une transaction.
