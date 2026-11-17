@@ -258,8 +258,8 @@ q("csv")?.addEventListener("click",()=>{
 function setupForm(){
   const form=q("draft-form")??q("bot-form");if(!form)return;
   const box=q("description"), input=q("invoice"), preview=q("invoice-preview"), result=q("form-result");
-  let objectUrl="",version=0;
-  const removePreview=()=>{if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl="";if(preview){preview.removeAttribute("src");preview.hidden=true;}};
+  let version=0;
+  const removePreview=()=>{if(preview){preview.hidden=true;preview.width=1;preview.height=1;}};
   const flag=text=>/(.)\1{8,}/u.test(text)||/(https?:\/\/\S+\s*){3,}/iu.test(text);
   if(input)box.addEventListener("paste",event=>{event.preventDefault();result.textContent=t("paste");});
   form.addEventListener("reset",()=>{version++;removePreview();result.textContent="";});
@@ -279,9 +279,17 @@ function setupForm(){
           ||(a===82&&b===73&&c===70&&d===70&&i===87&&j===69&&k===66&&l===80&&file.type==="image/webp");
         if(!valid)throw Error("Image signature");
         if(seq!==version) return;
-        objectUrl=URL.createObjectURL(file);preview.src=objectUrl;await preview.decode();
-        if(seq!==version)return;
-        preview.hidden=false;
+        const image=await createImageBitmap(file);
+        try{
+          if(seq!==version)return;
+          const scale=Math.min(1,640/Math.max(image.width,image.height));
+          preview.width=Math.max(1,Math.round(image.width*scale));
+          preview.height=Math.max(1,Math.round(image.height*scale));
+          const ctx=preview.getContext("2d");
+          if(!ctx)throw Error("Image preview unavailable");
+          ctx.drawImage(image,0,0,preview.width,preview.height);
+          preview.hidden=false;
+        }finally{image.close();}
       }catch{if(seq===version){removePreview();result.textContent=t("badFile");}return;}
     }
     if(seq===version) result.textContent=[input?t("draft"):"",t(flag(text)?"flag":"noFlag")].filter(Boolean).join(" ");
