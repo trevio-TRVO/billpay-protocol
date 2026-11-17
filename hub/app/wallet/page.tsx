@@ -1,4 +1,4 @@
-import { PageIntro } from "@/components/project";
+import { PageIntro, ProjectLink } from "@/components/project";
 import { WalletConnect } from "@/components/wallet-connect";
 
 export const metadata = { title: "Mon wallet" };
@@ -9,5 +9,6 @@ export default function Page() {
       Vérifiez l’adresse publique et le réseau de votre portefeuille. Cette page ne demande aucune signature, n’envoie aucune transaction et n’affiche aucun solde fictif.
     </PageIntro>
     <WalletConnect />
+    <ProjectLink href="/compte/">Associer un wallet à mon compte</ProjectLink>
   </div>;
 }

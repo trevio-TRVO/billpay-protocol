@@ -10,9 +10,12 @@ const nav = [
     ["/", "Tableau de bord"], ["/demande/", "Espace demandeurs"],
     ["/tribunal/", "Tribunal solidaire"], ["/transparence/", "Transparence"],
   ] },
+  { title: "Compte", pages: [
+    ["/compte/", "Mon compte"], ["/wallet/", "Mon wallet"],
+  ] },
   { title: "Protocole", pages: [
     ["/token/", "Jeton BILL"], ["/lots/", "Lots communautaires"],
-    ["/wallet/", "Mon wallet"], ["/validateurs/", "Espace validateurs"],
+    ["/validateurs/", "Espace validateurs"],
     ["/conseil/", "Conseil"], ["/antibot/", "Contrôle des dossiers"],
   ] },
 ];

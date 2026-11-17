@@ -3,10 +3,10 @@ name: Déployer BillPay Hub (Next.js) sur GitHub Pages
 on:
   push:
     branches: ["main"]
-    paths: ["hub/**", "site/assets/favicon.svg", ".github/workflows/**", ".gitignore"]
+    paths: ["hub/**", "supabase/**", "site/assets/favicon.svg", ".github/workflows/**", ".gitignore"]
   pull_request:
     branches: ["main"]
-    paths: ["hub/**", "site/assets/favicon.svg", ".github/workflows/**", ".gitignore"]
+    paths: ["hub/**", "supabase/**", "site/assets/favicon.svg", ".github/workflows/**", ".gitignore"]
   workflow_dispatch:
 
 permissions:
@@ -37,9 +37,14 @@ jobs:
       - name: Build statique (next build, output export)
         run: npm run build
         working-directory: hub
+        env:
+          NEXT_PUBLIC_BILLPAY_ACCOUNTS_ENABLED: ${{ vars.BILLPAY_ACCOUNTS_ENABLED }}
+          NEXT_PUBLIC_BILLPAY_SUPABASE_URL: ${{ vars.BILLPAY_SUPABASE_URL }}
+          NEXT_PUBLIC_BILLPAY_SUPABASE_PUBLISHABLE_KEY: ${{ vars.BILLPAY_SUPABASE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_BILLPAY_TURNSTILE_SITE_KEY: ${{ vars.BILLPAY_TURNSTILE_SITE_KEY }}
 
       - name: Vérifier les routes et fichiers publiés
-        run: npm run test:export
+        run: npm run test:export && npm run test:accounts
         working-directory: hub
 
       - name: Upload de l'artifact

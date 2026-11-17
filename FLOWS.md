@@ -13,3 +13,9 @@
 - Mon wallet : sans extension, un message d'aide apparaît. Avec un fournisseur simulé, vérifier le réseau Base, le changement de compte et la déconnexion locale ; aucune méthode de signature ou d'envoi.
 - Anciennes adresses `/site/` (avec et sans fragment), `/hub/`, `/site/wallets.html` : rediriger vers les rubriques pertinentes, y compris sans JavaScript vers une destination de repli.
 - Route inconnue : proposer le retour à l'accueil. Vérifier les erreurs réseau, le débordement horizontal et la console sur ordinateur et à 375 px.
+
+## Comptes
+- Mon compte : sans configuration, afficher un état fermé, sans saisie ni faux compte.
+- Avec configuration : choisir « Créer un compte » ou « Se connecter », passer Turnstile, demander un code, confirmer le code et voir les droits vérifiés. Tester échec et renvoi ; se déconnecter sans conserver les données.
+- Demandeur : identité et facture contrôlées séparément ; aucun téléversement public. Gold : justificatif on-chain uniquement ; conseil : registre et MFA ; fondateur : compte désigné et MFA. Les droits ne s’héritent pas.
+- Wallet : vérifier Base avant la signature, demander uniquement une signature de message d’association, tester absence/refus/mauvais réseau, puis lier l’adresse et vérifier la lecture de BILL si configurée.

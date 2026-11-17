@@ -9,7 +9,7 @@ const pages = [
   ["", "Aider les familles"], ["demande/", "Espace demandeurs"], ["tribunal/", "Tribunal solidaire"],
   ["transparence/", "Transparence"], ["token/", "Jeton BILL"], ["lots/", "Lots communautaires"],
   ["wallet/", "Mon wallet"], ["validateurs/", "Espace validateurs"], ["conseil/", "Conseil"],
-  ["antibot/", "Contrôle des dossiers"],
+  ["antibot/", "Contrôle des dossiers"], ["compte/", "Mon compte"],
 ];
 
 test("export GitHub Pages: fichiers de publication et routes publiques", () => {
@@ -21,11 +21,12 @@ test("export GitHub Pages: fichiers de publication et routes publiques", () => {
     for (const [, asset] of html.matchAll(/(?:src|href)="(\/_next\/[^"?]+)/g)) {
       assert.ok(existsSync(new URL(asset.slice(1), out)), asset);
     }
-    assert.doesNotMatch(html, /type="(?:file|email)"|billpay-hub-db-v1|Cours BILL\/USDC — démonstration/);
+    assert.doesNotMatch(html, /type="file"|billpay-hub-db-v1|Cours BILL\/USDC — démonstration/);
   }
   const home = read("index.html");
   assert.match(home, /Aucune lecture du contrat du fonds/);
   assert.match(home, /href="\/demande\/"/);
+  assert.match(home, /href="\/compte\/"/);
 });
 
 test("anciennes URL: fragments connus, fragment inconnu et redirection de secours", () => {
