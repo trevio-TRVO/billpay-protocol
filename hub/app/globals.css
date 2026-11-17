@@ -174,6 +174,22 @@ select {
 .wallet-panel dd { margin-bottom: .625rem; }
 .wallet-panel .wallet-address { overflow-wrap: anywhere; font-family: var(--font-mono); }
 .wallet-panel [role="status"] p { margin-top: .75rem; }
+.account-panel { overflow-wrap: anywhere; }
+.account-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .875rem; }
+.account-choice { min-height: 2.75rem; padding: .5rem .875rem; border: 1px solid hsl(var(--border)); border-radius: .375rem; color: hsl(var(--muted-foreground)); font-size: var(--hub-small); }
+.account-choice[aria-pressed="true"] { border-color: hsl(var(--primary) / .55); background-color: hsl(var(--primary) / .1); color: hsl(var(--primary)); }
+.account-form { display: grid; justify-items: start; gap: .625rem; margin-top: 1rem; max-width: 30rem; }
+.account-form label { font-size: var(--hub-small); font-weight: 700; }
+.account-form input { width: 100%; min-height: 2.75rem; padding: .5rem .75rem; background: hsl(var(--background)); border: 1px solid hsl(var(--input)); border-radius: .375rem; }
+.account-form > div:has(iframe) { width: 100%; min-width: 0; }
+.account-panel .action-link:disabled { opacity: .55; cursor: not-allowed; }
+.account-rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem 1.25rem; margin-block: 1rem; }
+.account-rules > div { border-top: 1px solid hsl(var(--border)); padding-top: .625rem; }
+.account-rules dt, .account-panel h3 { font-weight: 700; }
+.account-rules dd { color: hsl(var(--muted-foreground)); font-size: var(--hub-small); margin-top: .375rem; }
+.account-wallet, .account-mfa { border-top: 1px solid hsl(var(--border)); margin-top: 1rem; padding-block: 1rem .25rem; }
+.account-wallet p { margin-block: .375rem .625rem; }
+.account-message:not(:empty) { margin-top: .75rem; color: hsl(var(--muted-foreground)); font-size: var(--hub-small); }
 .hub-footer { margin-top: auto; padding-top: var(--hub-gap); display: flex; gap: .125rem 1.25rem; align-items: center; flex-wrap: wrap; color: hsl(var(--muted-foreground)); font-size: var(--hub-small); }
 .hub-footer a { display: inline-flex; gap: .375rem; align-items: center; min-height: 2.75rem; }
 .hub-footer a:hover { text-decoration: underline; }
@@ -194,4 +210,5 @@ select {
 @media (max-width: 31rem) {
   .header-network { display: none; }
   .metric-grid { grid-template-columns: minmax(0, 1fr); }
+  .account-rules { grid-template-columns: minmax(0, 1fr); }
 }

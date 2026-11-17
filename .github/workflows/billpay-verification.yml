@@ -1,0 +1,59 @@
+name: Recette BillPay (contrats, Relay et API comptes)
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    name: Contrats Solidity sans transaction
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.7.1
+      - run: forge test --skip script
+
+  relay:
+    name: Relais et publications simulées
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: relay
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: relay/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+        env:
+          DRY_RUN: "true"
+          APPROVE: "false"
+
+  accounts:
+    name: Typage de l’API comptes et règles d’accès
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno check --frozen -c supabase/functions/billpay-account/deno.json supabase/functions/billpay-account/index.ts
+      - run: deno test --frozen --allow-env -c supabase/functions/billpay-account/deno.json supabase/functions/billpay-account/fixture.test.mjs
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm --prefix hub run test:accounts

@@ -22,6 +22,11 @@ async function main() {
     const n = await collect(createReadClient(cfg.rpcUrl), cfg, queue, () => reader.stats(), opts);
     console.log(`${n} new draft(s) queued`);
   };
+  const doFlush = async () => {
+    const result = await flush(queue, opts);
+    console.log(result);
+    if (result.failures?.length) process.exitCode = 1;
+  };
   switch (cmd) {
     case "collect":
       return doCollect();
@@ -36,10 +41,10 @@ async function main() {
       console.log(`${arg}: ${cmd}d`);
       return;
     case "flush":
-      return void console.log(await flush(queue, opts));
+      return doFlush();
     case "run":
       await doCollect();
-      return void console.log(await flush(queue, opts));
+      return doFlush();
     default:
       console.log(USAGE);
   }

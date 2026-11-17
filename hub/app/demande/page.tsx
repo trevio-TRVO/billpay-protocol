@@ -19,6 +19,7 @@ export default function Page() {
         <li><strong>Approbation et versement.</strong> Le conseil intervient selon les règles du contrat. Le vote public reste consultatif.</li>
       </ol>
       <ProjectLink href="/tribunal/">Voir le rôle du Tribunal</ProjectLink>
+      <div><ProjectLink href="/compte/">Comprendre la vérification du compte demandeur</ProjectLink></div>
     </section>
   </div>;
 }

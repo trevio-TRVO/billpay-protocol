@@ -1,0 +1,6 @@
+project_id = "billpay-protocol"
+
+[functions.billpay-account]
+# The handler validates the exact bearer token with Auth.getUser. The platform's
+# legacy gateway secret verifier is incompatible with asymmetric signing keys.
+verify_jwt = false

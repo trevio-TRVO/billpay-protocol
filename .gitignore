@@ -3,3 +3,6 @@ cache
 node_modules
 /lib/
 /hub/.next/
+/hub/.env.local
+/supabase/.temp/
+/supabase/functions/.env

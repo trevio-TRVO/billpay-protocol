@@ -17,7 +17,7 @@ export function fmt(wei: bigint, decimals: number, maxFrac = 2): string {
   return group(i) + (frac ? `,${frac}` : "");
 }
 
-/** Pure, deterministic content: no LLM, no private data (addresses are shortened). */
+/** Pure, deterministic content; do not expose a solidarity recipient or case reference. */
 export function render(e: ChainEvent): Posts {
   switch (e.kind) {
     case "lot_sold": {
@@ -30,11 +30,10 @@ export function render(e: ChainEvent): Posts {
       };
     }
     case "bill_paid": {
-      const amt = fmt(e.amount, 18, 0);
       return {
-        fr: `✅ Une facture solidaire vient d'être payée : ${amt} BILL versés (demande n°${e.requestId}). Le Fonds Solidaire agit. #BillPay`,
-        en: `✅ A solidarity bill was just paid: ${amt} BILL sent (request #${e.requestId}). The Solidarity Fund at work. #BillPay`,
-        ru: `✅ Оплачен солидарный счёт: ${amt} BILL (заявка №${e.requestId}). Фонд солидарности в действии. #BillPay`,
+        fr: `Un transfert de BILL du Fonds solidaire a été enregistré sur Base. Cet événement ne confirme pas le règlement d'une facture par le fournisseur. #BillPay`,
+        en: `A BILL transfer from the Solidarity Fund was recorded on Base. This event does not confirm that the utility bill was settled. #BillPay`,
+        ru: `В Base зарегистрирован перевод BILL из Фонда солидарности. Это событие не подтверждает оплату счёта поставщику. #BillPay`,
       };
     }
     case "burn_milestone": {

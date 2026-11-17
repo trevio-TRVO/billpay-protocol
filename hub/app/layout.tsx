@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AppShell } from "@/components/app-shell";
+import { AccountProvider } from "@/components/account-provider";
 
 export const metadata: Metadata = {
   title: { default: "BillPay Hub | Aide aux factures d’énergie", template: "%s | BillPay Hub" },
@@ -26,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <AppShell>{children}</AppShell>
+        <AccountProvider><AppShell>{children}</AppShell></AccountProvider>
       </body>
     </html>
   );

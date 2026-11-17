@@ -14,3 +14,4 @@ npm run test:export
 L'interface est en français. Le portefeuille est facultatif et utilise le fournisseur injecté par le navigateur pour lire l'adresse et le réseau, sur action explicite. Il ne demande pas de signature et n'envoie pas de transaction. Rien n'est stocké dans le navigateur par le Hub.
 
 Voir [le guide de déploiement et les prérequis](../docs/SITE_NEXTJS.md).
+Pour `/compte/` (connexion e-mail, Turnstile, droits et wallet), voir [le guide des comptes](../docs/ACCOUNTS.md).

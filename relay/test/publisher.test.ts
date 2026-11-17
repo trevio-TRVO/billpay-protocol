@@ -33,7 +33,10 @@ describe("templates", () => {
     }
     expect(render(evs[0]).en).toContain("0x0000…cdef");
     expect(render(evs[0]).en).not.toContain(A(0xabcdef));
-    expect(render(evs[1]).fr).toContain("12\u202f345 BILL");
+    expect(render(evs[1]).fr).toContain("ne confirme pas le règlement");
+    for (const text of Object.values(render(evs[1]))) {
+      expect(text).not.toMatch(/12[\s\u202f]?345|0x|n°4|#4|№4/);
+    }
   });
 });
 
@@ -84,8 +87,31 @@ describe("queue + flush gating", () => {
   it("failed sends stay approved for retry", async () => {
     const q = noSave(mem()); q.enqueue(ev); q.decide("paid:1", "approved");
     const ch: Channel = { name: "bad", langs: ["en"], send: async () => { throw new Error("nope"); } };
-    await flush(q, opts({ approve: true, dryRun: false, channels: [ch] }));
+    const result = await flush(q, opts({ approve: true, dryRun: false, channels: [ch] }));
+    expect(result.failures).toEqual([{ id: "paid:1", channel: "bad", lang: "en" }]);
     expect(q.list("approved")).toHaveLength(1);
+  });
+
+  it("persists each confirmed send and retries only destinations not delivered", async () => {
+    const dir = await mkdtemp(join(process.cwd(), "test-state-"));
+    try {
+      const f = join(dir, "state.json");
+      const q = new Queue(f); q.enqueue(ev); q.decide("paid:1", "approved");
+      const calls: string[] = [];
+      const ch: Channel = { name: "rec", langs: ["fr", "en"], send: async (_, lang) => {
+        calls.push(lang);
+        if (lang === "en" && calls.length === 2) throw new Error("temporary failure");
+      } };
+      const settings = opts({ approve: true, dryRun: false, channels: [ch] });
+      await flush(q, settings);
+      const restored = await Queue.load(f);
+      expect(restored.list("approved")[0]?.postedTo).toEqual(["rec:fr"]);
+      await flush(restored, settings);
+      expect(calls).toEqual(["fr", "en", "en"]);
+      expect((await Queue.load(f)).list("posted")[0]?.postedTo).toEqual(["rec:fr", "rec:en"]);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 
   it("persists state to disk", async () => {
