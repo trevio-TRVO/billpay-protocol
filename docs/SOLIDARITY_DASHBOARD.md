@@ -12,7 +12,7 @@ Objectif central : **faire évoluer le projet en le protégeant** contre les fau
 2. **Contrôle par IA, automatique** : analyse de la facture et de la description (cohérence, doublons, falsification, texte généré en masse, comportement de bot). L'IA **classe et signale** ; elle ne détient aucune clé de paiement.
 3. **Validation par au moins 5 acquéreurs de lots** : seuls les wallets ayant acheté un lot depuis **au moins 30 jours** (preuve vérifiable dans `CommunityLots.grants`, anti-collusion issue #10) ont un compte validateur spécial. Il faut **au moins 5 validateurs distincts** qui approuvent.
 4. **Vote public** : tout visiteur identifié (Google ou équivalent, une voix par compte) peut voter OUI ou NON. Il sert de signal communautaire.
-5. **Paiement automatique** : dès que les conditions sont réunies (dossier non signalé par l'IA, ≥ 5 validations de détenteurs de lots, vote public favorable), le contrat du `solidarityWallet` paie la facture au prochain cycle de 24 h. Aucune intervention manuelle.
+5. **Paiement automatique** : dès que les conditions réunies sont **entièrement on-chain** (dossier non signalé par l'IA au relais, ≥ 5 validations de détenteurs de lots anciens, poids du conseil ≥ 5), le contrat du `solidarityWallet` paie la facture au prochain cycle de 24 h. Aucune intervention manuelle. Le vote public est **consultatif** (décision 2026-11-17, `DECISIONS.md` #7) : il éclaire le conseil, qui peut suivre le signal ou annuler (poids 5), mais il n'est pas une condition du paiement — traduire un vote hors chaîne en autorisation exigerait une clé privilégiée, contraire à « sans admin ».
 
 ### Principes d'architecture
 - Les 5 validations sont **sur chaîne** : signatures de wallets détenant un lot, vérifiées par le contrat, donc sans admin.
@@ -32,6 +32,6 @@ Objectif central : **faire évoluer le projet en le protégeant** contre les fau
 - **Blocage du collage** : contrôle côté navigateur uniquement, contournable ; c'est un frein, pas une garantie. La vraie protection est l'IA et la validation par 5 détenteurs de lots.
 - **Collusion** : 5 validateurs peuvent s'entendre ou être le même acteur avec plusieurs wallets (1 achat par wallet). Pistes : validateurs tirés au sort parmi les détenteurs, ancienneté minimale du lot, rotation.
 - **Faux comptes** : une identification Google est facile à multiplier ; un vote public à une voix par compte est vulnérable aux bots. Pistes : un seul compte par personne vérifié, délai minimal d'ancienneté, quorum, vérification des factures hors chaîne.
-- **Confiance** : un résultat de vote hors chaîne exige un signataire ou un oracle, ce qui réintroduit une clé privilégiée, contraire à « sans admin ». À trancher (ex. comité de 3 signataires tirés au sort, multisig).
+- **Confiance** : un résultat de vote hors chaîne exige un signataire ou un oracle, ce qui réintroduit une clé privilégiée, contraire à « sans admin ». **Tranché le 2026-11-17** : le vote public reste consultatif, aucune clé n'atteste son résultat (voir `DECISIONS.md` #7).
 - **Vie privée** : jamais de documents ni d'identités sur la chaîne ; données masquées sur les cartes.
 - Un dossier par adresse et par période, contre la revente de factures.
