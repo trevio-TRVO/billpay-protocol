@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from "node:fs";
 import test from "node:test";
 import assert from "node:assert/strict";
-import { runInNewContext } from "node:vm";
+import { aliases, redirectScript, redirectTarget } from "./legacy-routes.mjs";
 
 const out = new URL("../out/", import.meta.url);
 const read = (path) => readFileSync(new URL(path, out), "utf8");
@@ -35,16 +35,16 @@ test("anciennes URL: fragments connus, fragment inconnu et redirection de secour
     ["site/index.html", "#governance", "../conseil/"],
     ["site/index.html", "#risks", "../token/"],
     ["site/index.html", "#inconnu", "../"],
+    ["site/index.html", "constructor", "../"],
     ["site/index.html", "", "../"],
     ["hub/index.html", "", "../"],
     ["site/wallets.html", "", "../wallet/"],
     ["wallets.html", "", "./wallet/"],
   ]) {
     const html = read(path);
-    const source = html.match(/<script>([\s\S]*?)<\/script>/)[1];
-    let result;
-    runInNewContext(source, { location: { hash, replace: (value) => { result = value; } } });
-    assert.equal(result, expected, `${path}${hash}`);
-    assert.match(html, /<noscript><meta http-equiv="refresh"/);
+    const alias = aliases[path];
+    assert.equal(redirectTarget(hash, alias.fallback, alias.fragments ?? {}), expected, `${path}${hash}`);
+    assert.ok(html.includes(`<script>${redirectScript(alias)}</script>`), path);
+    assert.ok(html.includes(`<noscript><meta http-equiv="refresh" content="0;url=${alias.fallback}">`), path);
   }
 });
