@@ -1,5 +1,7 @@
 # Points ouverts
 
+> Propositions argumentées pour les points ci-dessous : voir `DECISIONS.md` (issues #2, #3, #4, #7).
+
 ## Décisions validées (2026-11-09)
 - Le fondateur finance lui-même les 50 USDC de la liquidité initiale (avec 500 000 BILL).
 - Sa rémunération provient des 2 % de contribution « gestion et marketing » (`operationsWallet`), sans passe-droit sur le token ; ses 20 % restent soumis au vesting et aux limites de vente.
